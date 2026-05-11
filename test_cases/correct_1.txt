@@ -1,0 +1,12 @@
+FEEDBACK {
+SCORE: 85;
+LEVEL: medium;
+COMMENT {
+TEXT: "逻辑清晰，但边界处理不足";
+SUGGESTION: "增加空指针检查";
+}
+ERRORS [
+ERROR(line:12, type:runtime, msg:"NullPointerException");
+ERROR(line:27, type:logic, msg:"边界条件错误");
+]
+}

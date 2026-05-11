@@ -1,0 +1,10 @@
+FEEDBACK {
+SCORE: 100;
+LEVEL: easy;
+COMMENT {
+SUGGESTION: "代码风格良好，可考虑添加注释";
+TEXT: "完全正确，结构清晰";
+}
+ERRORS [
+]
+}

@@ -1,0 +1,7 @@
+FEEDBACK {
+SCORE: 85
+LEVEL: medium;
+ERRORS [
+ERROR(line:12, type:runtime, msg:"NullPointerException");
+]
+}

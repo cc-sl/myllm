@@ -1,0 +1,13 @@
+FEEDBACK {
+SCORE: 65;
+LEVEL: hard;
+COMMENT {
+TEXT: "二分查找实现有误，循环条件和中间值计算都存在问题，可能导致死循环或错误结果";
+SUGGESTION: "修改循环条件为 low <= high，中间值使用 low + (high - low) / 2 防止溢出";
+}
+ERRORS [
+ERROR(line:5, type:logic, msg:"循环条件应为low<=high而非low<high");
+ERROR(line:6, type:runtime, msg:"mid计算可能整数溢出");
+ERROR(line:10, type:logic, msg:"边界更新应为high=mid-1和low=mid+1");
+]
+}
