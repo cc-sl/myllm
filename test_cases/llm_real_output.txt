@@ -1,13 +1,12 @@
 FEEDBACK {
 SCORE: 65;
-LEVEL: hard;
+LEVEL: easy;
 COMMENT {
-TEXT: "二分查找实现有误，循环条件和中间值计算都存在问题，可能导致死循环或错误结果";
-SUGGESTION: "修改循环条件为 low <= high，中间值使用 low + (high - low) / 2 防止溢出";
+TEXT: "代码逻辑简单直接，能够正确获取非空字符串的首字符";
+SUGGESTION: "建议增加对输入参数是否为null或空字符串的检查，以提高代码的健壮性";
 }
 ERRORS [
-ERROR(line:5, type:logic, msg:"循环条件应为low<=high而非low<high");
-ERROR(line:6, type:runtime, msg:"mid计算可能整数溢出");
-ERROR(line:10, type:logic, msg:"边界更新应为high=mid-1和low=mid+1");
+ERROR(line:2, type:runtime, msg:"NullPointerException if input is null");
+ERROR(line:2, type:runtime, msg:"StringIndexOutOfBoundsException if input is empty");
 ]
 }
