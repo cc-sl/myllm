@@ -514,6 +514,58 @@ def print_ast_from_text(text: str) -> None:
     ast_root = parse_text(text)
     ast_root.pprint()
 
+# ============================================================
+# 7 个典型错误测试用例
+# ============================================================
+def run_error_tests():
+    """覆盖需求中的 7 种典型错误，全部断言抛出 ParseError"""
+    tests = [
+        # 1. 空输入：完全无内容
+        ("空输入", "", "Unexpected token type"),
+
+        # 2. 缺少闭合大括号：最常见语法错误
+        ("缺少闭合大括号", "FEEDBACK { SCORE: 85;", "Unexpected token type"),
+
+        # 3. 缺少分号：语句结束符缺失（LEVEL 严格需要分号，故放在 LEVEL 上）
+        ("缺少分号", "FEEDBACK { LEVEL: medium }", "Unexpected token type"),
+
+        # 4. 字符串未闭合：词法分析阶段报错（需先修复 Lexer 的未闭合检测）
+        ("字符串未闭合", 'FEEDBACK { COMMENT { TEXT: "未闭合; } }', "Unterminated string"),
+
+        # 5. ERROR 格式错误：少逗号 / 括号，语法解析失败
+        ("ERROR 格式错误-少逗号", 
+         'FEEDBACK { ERRORS [ ERROR(line:1 type:runtime, msg:"x"); ] }', 
+         "Unexpected token type"),
+
+        # 6. 关键字非法：使用非 FEEDBACK 开头
+        ("关键字非法", "REVIEW { SCORE: 85; }", "Unexpected token type"),
+
+        # 7. 符号不匹配：[] 和 {} 混用
+        ("符号不匹配", "FEEDBACK [ SCORE: 85; ]", "Unexpected token type"),
+    ]
+
+    print("\n" + "=" * 50)
+    print("错误处理测试：7 个典型错误")
+    print("=" * 50)
+
+    passed = 0
+    for name, text, expected_kw in tests:
+        print(f"\n>>> 测试: {name}")
+        print(f"    输入: {text!r}")
+        try:
+            ast = parse_text(text)
+            print(f"    [失败] 未抛出异常，意外得到 AST:")
+            ast.pprint()
+        except ParseError as e:
+            print(f"    [通过] ParseError: {e}")
+            passed += 1
+        except Exception as e:
+            print(f"    [失败] 抛出了非 ParseError 异常: {type(e).__name__}: {e}")
+
+    print("\n" + "=" * 50)
+    print(f"测试结果: {passed}/{len(tests)} 通过")
+    print("=" * 50)
+
 
 # ============================================================
 # 主入口：演示
@@ -551,7 +603,7 @@ if __name__ == '__main__':
     ast_root = parser.parse()
     ast_root.pprint()
 
-    # 错误处理，此处应该有7个典型错误
+    # 此处应该有7个典型错误
     # 空输入：完全无内容
     # 缺少闭合大括号：最常见语法错误
     # 缺少分号：语句结束符缺失
@@ -559,6 +611,9 @@ if __name__ == '__main__':
     # ERROR 格式错误：少逗号 / 括号，语法解析失败
     # 关键字非法：使用非 FEEDBACK 开头
     # 符号不匹配：[] 和 {} 混用
+
+    run_error_tests()
+
 
     # 容错测试：SCORE 省略分号
     print("\n" + "=" * 50)
