@@ -1,5 +1,3 @@
-# 先提交一个初始文件，后面如果我能想起来就去提交新的文件
-
 # EduAssist 语法分析器 — 编译原理课程作业
 
 面向教育场景的大模型输出语法分析器设计与实现。
@@ -22,7 +20,6 @@
 ```bash
 pip install openai
 ```
-
 
 > 仅 `evaluate.py` 需要 `openai` 库。`edu_parser.py` 可独立运行，无额外依赖。
 
