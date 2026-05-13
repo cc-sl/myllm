@@ -7,6 +7,7 @@
 .
 ├── edu_parser.py # 任务二：递归下降语法分析器 + 词法分析器
 ├── evaluate.py # 任务三：端到端系统集成（LLM API + Parser）
+├── config.py # 大模型配置（此处不提供）
 ├── test_cases/ # 测试用例
 │ ├── correct_1.txt # 正确输入 1
 │ ├── correct_2.txt # 正确输入 2

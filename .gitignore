@@ -1,10 +1,11 @@
 # .gitignore
 简化版.md
-任务一.docx
-~$任务一.docx
 report.docx
 ~$report.docx
-~WRL4072.tmp
 构造预测分析表（LL(1) Parse Table）.xlsx
 ~$构造预测分析表（LL(1) Parse Table）.xlsx
+辅助表格.xlsx
+~$辅助表格.xlsx
+*.tmp
+config.py
 photos/

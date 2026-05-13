@@ -16,17 +16,12 @@ from typing import Dict, Any, Optional, Tuple
 from edu_parser import Lexer, EduParser, ASTNode, ParseError
 
 
-# ============================================================
-# 配置（根据你使用的 LLM API 修改）
-# ============================================================
-# 推荐国内接口:
-#   - 智谱 GLM: base_url="https://open.bigmodel.cn/api/paas/v4"
-#   - 通义千问: base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
-#   - Moonshot: base_url="https://api.moonshot.cn/v1"
+# main.py
+from config import API_BASE_URL, API_KEY, API_MODEL
 
-API_BASE_URL = os.environ.get("LLM_API_BASE_URL", "https://open.bigmodel.cn/api/paas/v4")
-API_KEY = os.environ.get("LLM_API_KEY", "")
-API_MODEL = os.environ.get("LLM_API_MODEL", "glm-4-flash")
+# print(API_BASE_URL)
+# print(API_KEY)
+# print(API_MODEL)
 
 
 # ============================================================
