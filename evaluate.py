@@ -214,6 +214,8 @@ def evaluate_submission(code_snippet: str) -> Dict[str, Any]:
             # 1. 调用 LLM
             if retry_count == 0:
                 raw_output = call_llm(code_snippet)
+                print("\nLLM 原始输出")
+                print(raw_output)
             else:
                 # 重试时附加格式错误提示
                 error_hint = (
@@ -318,6 +320,7 @@ def test_stability(code_snippets: list) -> dict:
 # ============================================================
 if __name__ == '__main__':
     import argparse
+    import json  # 确保导入json模块，原代码用到了
 
     parser_arg = argparse.ArgumentParser(description='EduAssist 端到端批改系统')
     parser_arg.add_argument('--local', action='store_true',
@@ -327,6 +330,11 @@ if __name__ == '__main__':
     parser_arg.add_argument('--input', type=str, default=None,
                             help='输入学生代码文件路径')
     args = parser_arg.parse_args()
+
+    # 核心修改：默认启动本地解析 
+    # 如果没有传入任何参数，自动启用本地模式
+    if not any([args.local, args.api_test, args.input]):
+        args.local = True
 
     if args.local:
         # 本地测试
@@ -350,7 +358,7 @@ if __name__ == '__main__':
     elif args.api_test:
         # API 稳定性测试
         test_codes = [
-            # 代码1: 有空指针风险
+            # 代码1: 有空指针风险+数组越界
             """public int findMax(int[] arr) {
     int max = arr[0];
     for (int i = 1; i <= arr.length; i++) {
@@ -358,7 +366,7 @@ if __name__ == '__main__':
     }
     return max;
 }""",
-            # 代码2: 有逻辑错误
+            # 代码2: 有逻辑错误(素数判断效率极低)
             """public boolean isPrime(int n) {
     if (n < 2) return false;
     for (int i = 2; i < n; i++) {
@@ -366,11 +374,43 @@ if __name__ == '__main__':
     }
     return true;
 }""",
-            # 代码3: 基本正确
+            # 代码3: 基本正确(阶乘计算)
             """public int factorial(int n) {
     if (n <= 1) return 1;
     return n * factorial(n - 1);
 }""",
+            # 代码4: 除零异常风险
+            """public double divide(int a, int b) {
+    return a / b;
+}""",
+            # 代码5: 空指针异常(字符串操作)
+            """public int getStringLength(String str) {
+    return str.length();
+}""",
+            # 代码6: 死循环风险
+            """public void infiniteLoop() {
+    int i = 0;
+    while (i >= 0) {
+        i++;
+    }
+}""",
+            # 代码7: 类型转换错误(向下转型)
+            """public int castToInt(Object obj) {
+    return (Integer) obj;
+}""",
+            # 代码8: 基本正确(两数求和)
+            """public int add(int a, int b) {
+    return a + b;
+}""",
+            # 代码9: 数组越界(字符串索引)
+            """public char getFirstChar(String str) {
+    return str.charAt(0);
+}""",
+            # 代码10: 有逻辑错误(斐波那契数列)
+            """public int fibonacci(int n) {
+    if (n <= 1) return n;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}"""
         ]
         test_stability(test_codes)
 

@@ -1,0 +1,159 @@
+
+--- 测试用例 1 ---
+
+LLM 原始输出
+FEEDBACK {
+SCORE: 50;
+LEVEL: easy;
+COMMENT {
+TEXT: "代码意图清晰，但循环条件设置错误，导致数组越界异常。";
+SUGGESTION: "将循环条件 i <= arr.length 修改为 i < arr.length。";
+}
+ERRORS [
+ERROR(line:4, type:runtime, msg:"ArrayIndexOutOfBoundsException");
+]
+}
+  解析成功 ✓ 分数: 50, 等级: easy
+
+--- 测试用例 2 ---
+
+LLM 原始输出
+FEEDBACK {
+  SCORE: 85;
+  LEVEL: easy;
+  COMMENT {
+    TEXT: "代码逻辑正确，能够准确判断质数，边界条件处理得当";
+    SUGGESTION: "优化循环条件，只需遍历到Math.sqrt(n)即可，以提高大数情况下的运行效率";
+  }
+  ERRORS []
+}
+  解析成功 ✓ 分数: 85, 等级: easy
+
+--- 测试用例 3 ---
+
+LLM 原始输出
+FEEDBACK {
+SCORE: 90;
+LEVEL: easy;
+COMMENT {
+TEXT: "代码逻辑清晰，正确实现了递归求阶乘的功能，语法无误。";
+SUGGESTION: "建议增加对负数输入的校验，防止负数导致无限递归引发栈溢出；对于大数计算，可考虑使用迭代方式优化。";
+}
+ERRORS [
+ERROR(line:2, type:logic, msg:"负数输入可能导致无限递归或栈溢出");
+]
+}
+  解析成功 ✓ 分数: 90, 等级: easy
+
+--- 测试用例 4 ---
+
+LLM 原始输出
+FEEDBACK {
+SCORE: 40;
+LEVEL: easy;
+COMMENT {
+TEXT: "代码语法正确，但存在两个严重问题：一是整数除法导致精度丢失（例如5/2结果为2.0），二是未处理除数为0的异常情况。";
+SUGGESTION: "将其中一个操作数强制转换为double以执行浮点除法，并添加if语句检查除数是否为0。";
+}
+ERRORS [
+ERROR(line:2, type:logic, msg:"整数除法导致精度丢失");
+ERROR(line:2, type:runtime, msg:"除数为0时抛出ArithmeticException");
+]
+}
+  解析成功 ✓ 分数: 40, 等级: easy
+
+--- 测试用例 5 ---
+
+LLM 原始输出
+FEEDBACK {
+SCORE: 100;
+LEVEL: easy;
+COMMENT {
+TEXT: "代码逻辑正确，能够准确返回字符串的长度。";
+SUGGESTION: "为了增强代码的健壮性，建议增加对输入参数 str 是否为 null 的判断。";
+}
+ERRORS []
+}
+  解析成功 ✓ 分数: 100, 等级: easy
+
+--- 测试用例 6 ---
+
+LLM 原始输出
+FEEDBACK {
+SCORE: 50;
+LEVEL: easy;
+COMMENT {
+TEXT: "代码语法正确，但逻辑上并非真正的无限循环。由于int类型的溢出特性，当i增加到Integer.MAX_VALUE后再加1会变成负数，导致循环终止。";
+SUGGESTION: "如果需要无限循环，建议使用 while(true) 或 for(;;) 标准写法。";
+}
+ERRORS [
+ERROR(line:3, type:logic, msg:"循环并非无限，整数溢出后会导致循环终止");
+]
+}
+  解析成功 ✓ 分数: 50, 等级: easy
+
+--- 测试用例 7 ---
+
+LLM 原始输出
+FEEDBACK {
+SCORE: 60;
+LEVEL: easy;
+COMMENT {
+TEXT: "代码语法正确，但缺乏健壮性，容易引发运行时崩溃";
+SUGGESTION: "建议添加 instanceof 类型检查和 null 值判断";
+}
+ERRORS [
+ERROR(line:2, type:runtime, msg:"ClassCastException");
+ERROR(line:2, type:runtime, msg:"NullPointerException");
+]
+}
+  解析成功 ✓ 分数: 60, 等级: easy
+
+--- 测试用例 8 ---
+
+LLM 原始输出
+FEEDBACK {
+  SCORE: 100;
+  LEVEL: easy;
+  COMMENT {
+    TEXT: "代码简洁，逻辑正确，完美实现了加法功能。";
+    SUGGESTION: "继续保持，可以尝试编写更复杂的函数。";
+  }
+  ERRORS []
+}
+  解析成功 ✓ 分数: 100, 等级: easy
+
+--- 测试用例 9 ---
+
+LLM 原始输出
+FEEDBACK {
+SCORE: 65;
+LEVEL: easy;
+COMMENT {
+TEXT: "代码逻辑简单直接，能够正确获取非空字符串的首字符";
+SUGGESTION: "建议增加对输入参数是否为null或空字符串的检查，以提高代码的健壮性";
+}
+ERRORS [
+ERROR(line:2, type:runtime, msg:"NullPointerException if input is null");
+ERROR(line:2, type:runtime, msg:"StringIndexOutOfBoundsException if input is empty");
+]
+}
+  解析成功 ✓ 分数: 65, 等级: easy
+
+--- 测试用例 10 ---
+
+LLM 原始输出
+FEEDBACK {
+SCORE: 85;
+LEVEL: easy;
+COMMENT {
+TEXT: "代码逻辑正确，成功实现了递归方式的斐波那契数列计算。";
+SUGGESTION: "建议增加对负数的输入校验以防止栈溢出；此外，递归解法效率较低，可考虑使用动态规划或迭代法优化性能。";
+}
+ERRORS [
+ERROR(line:2, type:logic, msg:"缺少对负数输入的处理，可能导致栈溢出");
+]
+}
+  解析成功 ✓ 分数: 85, 等级: easy
+
+稳定性测试结果: 10/10 合规, 合规率 = 100.0%

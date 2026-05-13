@@ -1,0 +1,56 @@
+# API 稳定性测试
+        test_codes = [
+            # 代码1: 有空指针风险+数组越界
+            """public int findMax(int[] arr) {
+    int max = arr[0];
+    for (int i = 1; i <= arr.length; i++) {
+        if (arr[i] > max) max = arr[i];
+    }
+    return max;
+}""",
+            # 代码2: 有逻辑错误(素数判断效率极低)
+            """public boolean isPrime(int n) {
+    if (n < 2) return false;
+    for (int i = 2; i < n; i++) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}""",
+            # 代码3: 基本正确(阶乘计算)
+            """public int factorial(int n) {
+    if (n <= 1) return 1;
+    return n * factorial(n - 1);
+}""",
+            # 代码4: 除零异常风险
+            """public double divide(int a, int b) {
+    return a / b;
+}""",
+            # 代码5: 空指针异常(字符串操作)
+            """public int getStringLength(String str) {
+    return str.length();
+}""",
+            # 代码6: 死循环风险
+            """public void infiniteLoop() {
+    int i = 0;
+    while (i >= 0) {
+        i++;
+    }
+}""",
+            # 代码7: 类型转换错误(向下转型)
+            """public int castToInt(Object obj) {
+    return (Integer) obj;
+}""",
+            # 代码8: 基本正确(两数求和)
+            """public int add(int a, int b) {
+    return a + b;
+}""",
+            # 代码9: 数组越界(字符串索引)
+            """public char getFirstChar(String str) {
+    return str.charAt(0);
+}""",
+            # 代码10: 有逻辑错误(斐波那契数列)
+            """public int fibonacci(int n) {
+    if (n <= 1) return n;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}"""
+        ]
