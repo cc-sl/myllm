@@ -544,10 +544,21 @@ if __name__ == '__main__':
         print(f"  {t[0]:12s} = {t[1]!r}")
 
     # 语法分析
+    print("\n" + "=" * 50)
     print("\n[语法分析] AST:")
+    print("=" * 50)
     parser = EduParser(tokens)
     ast_root = parser.parse()
     ast_root.pprint()
+
+    # 错误处理，此处应该有7个典型错误
+    # 空输入：完全无内容
+    # 缺少闭合大括号：最常见语法错误
+    # 缺少分号：语句结束符缺失
+    # 字符串未闭合：词法分析阶段报错
+    # ERROR 格式错误：少逗号 / 括号，语法解析失败
+    # 关键字非法：使用非 FEEDBACK 开头
+    # 符号不匹配：[] 和 {} 混用
 
     # 容错测试：SCORE 省略分号
     print("\n" + "=" * 50)
